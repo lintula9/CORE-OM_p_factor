@@ -89,9 +89,15 @@ $$
 \lambda>1-\psi
 $$
 
-In the above a constant error variance for all items is assumed.
+In the above a constant error variance for all items is assumed. Also the above results hinted that unadjusted method can only underfactor - not overfactor.
 
-This means that, if we know error variance, we can then adjust accordingly using either method. We do not know error variance however and are left to estimate it. Estimating error variance can be done in multiple ways - e.g., by fitting a 1 factor model - and then you can use the adjusted matrix with criteria \> 0 or the non-adjusted matrix, but adjusted criteria (\>(1-item error variance)). If the criteria is not adjusted for the non-adjusted matrix then the larger the smaller the error variance, the likelier that we underfactor maybe. These are of course theoretical values, not including sampling errors. The main takeaway is in any case that we'd like to know the error variances.
+More generally if there are orthogonal unique directions within the correlation matrix ('errors') as well as factors, that can be oblique w.r.t. other factors, but orthogonal to the errors, then each unique directions must have an eigenvalue of $\lambda_u\ge \text{Var}(\psi)$. This is because there are at most $K$ orthogonal directions in the correlation matrix. This means that if we subtract the error variances of all $\lambda$ we obtain eigenvalues uninflated by the unique directions. This means that the adjusted eigenvalues $\lambda_{i,adj}=\lambda_i-\text{Var}(\psi_i)$ must only give the magnitude the factor directions. Without the adjustment, we'd have eigenvalues that have values which depend on an unknown amount of error variance and an unknown amount of factor variance.
+
+Since the factors can be oblique, the sum adjusted eigenvalues gives the total magnitude of the factors, but they do not reveal the magnitude of each factor separately.
+
+Also notable is that the eigenvectors when extracting components are the loadings for their components, whereas if the true model is a factor model, then the eigenvectors - and magnitude of their respective directions - are not the ones we are after. We're after whats left after the uncorrelated errors are adjusted for.
+
+This means that, if we know error variance, we can then adjust accordingly (using either method). We do not know error variance however and are left to estimate it. Estimating error variance can be done in multiple ways - e.g., by fitting a 1 factor model - and then you can use the adjusted matrix with criteria \> 0 or the non-adjusted matrix, but adjusted criteria (\>(1-item error variance)). If the criteria is not adjusted for the non-adjusted matrix then the larger the smaller the error variance, the likelier that we underfactor maybe. These are of course theoretical values, not including sampling errors. The main takeaway is in any case that we'd like to know the error variances.
 
 [@steger2006][@crawford2010] discuss factor retention criteria and favor the communality adjusted method when there are correlated factors. Revelle discusses that 1-fa based communality adjustment might be reasonable, as it does not overfactor as much as squared mean correlation communality adjustment. All packages that I'm aware of (paran, psych, hornpa, parallel) use the above mentioned methods or similar.
 
