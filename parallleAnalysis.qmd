@@ -1,0 +1,100 @@
+---
+title: "Parallel Analysis theory"
+format: html
+editor: visual
+bibliography: references.bib
+---
+
+## PA theory
+
+In parallel analysis we are interested in finding the true amount of factors. In practice, this is arguably not possible with observed data without assumptions. In psychometric theory, the assumptions often is that responses to a set of items are due to traits or other latent aspects of the respondent. The other assumption is that there is also error within each item. Most of the time this error is assumed independent. Noting at this point, we've already made an arguably impractical scenario. This is because independent errors in responding to a homogeneous set of items can be viewed unlikely - this is the MIRT argument as I've understood it. Yet, theoretical analysis is always worth it, because it can be improved whereas views, beliefs and intuition not always can be.
+
+Independent variables, i.i.d. with mean 0 and observed variance of 1 are used here. This means that they have a correlation matrix $\Sigma$ with identity diagonal and off-diagonal elements of $-1\le r_{i,j}\le 1$. The complication arises that while the observed variance is 1, we do not know how much error variance (assumed to exist) is included in each variable. Say you have 0.5 error variance in each variable, and they are independent. This would mean that there exists as many factors as there are variables, each loaded $\sqrt{.5}\sigma^{-1}$ on their respective variable where $\sigma$ is the respective factor variance. As a factor model, it would not be identified, but it still would be the true model.
+
+Say a factor has 4 indicators (items) - variables loaded on the factor. Say each variable has 0.5 error variance again, and hence the loadings are approximately 0.7071, assuming factor variance of 1. Variables are correlated with correlation 0.7071\^2 = 0.5 approximately. Now, removing the error variance from the correlation matrix diagonal, the correlation matrix becomes:
+
+$$
+\begin{pmatrix}
+0.5&0.5&0.5&0.5\\
+0.5&0.5&0.5&0.5\\
+0.5&0.5&0.5&0.5\\
+0.5&0.5&0.5&0.5\\
+\end{pmatrix}
+$$
+
+This matrix has eigenvalues of 0,0,0,2. Lets move to more complex scenarios. Now assume that you have two factors with the respective matrix
+
+$$
+\begin{pmatrix}
+0.5&0.5&0.5&0.5&0&0&0&0\\
+0.5&0.5&0.5&0.5&0&0&0&0\\
+0.5&0.5&0.5&0.5&0&0&0&0\\
+0.5&0.5&0.5&0.5&0&0&0&0\\
+0&0&0&0&0.5&0.5&0.5&0.5\\
+0&0&0&0&0.5&0.5&0.5&0.5\\
+0&0&0&0&0.5&0.5&0.5&0.5\\
+0&0&0&0&0.5&0.5&0.5&0.5\\
+\end{pmatrix}
+$$
+
+which has eigenvalues of 0,0,0,0,0,0,2,2. Now assume that you have two correlated factors with correaltion of 0.5. This makes correlations across factor items - items x,y loaded to different factors
+
+$$
+\text{Cov}(X,Y)=E[XY]=E[(0.701\eta_X+\psi_X)(0.701\eta_Y+\psi_Y)]=\\
+E[0.701^2\eta_X\eta_Y+0.701\eta_X\psi_Y+0.701\eta_Y\psi_X+\psi_X\psi_Y ]=\\
+0.701^2\times0.5\approx 0.25=:0.25 \text{ for this example}
+$$
+
+$$
+\begin{pmatrix}
+0.5&0.5&0.5&0.5&0.25&0.25&0.25&0.25\\
+0.5&0.5&0.5&0.5&0.25&0.25&0.25&0.25\\
+0.5&0.5&0.5&0.5&0.25&0.25&0.25&0.25\\
+0.5&0.5&0.5&0.5&0.25&0.25&0.25&0.25\\
+0.25&0.25&0.25&0.25&0.5&0.5&0.5&0.5\\
+0.25&0.25&0.25&0.25&0.5&0.5&0.5&0.5\\
+0.25&0.25&0.25&0.25&0.5&0.5&0.5&0.5\\
+0.25&0.25&0.25&0.25&0.5&0.5&0.5&0.5\\
+\end{pmatrix}
+$$
+
+this matrix has eigenvalues of 0,0,0,0,0,0,1,3. Noting that this matrix is communality adjusted, the retention criteria then shouldnt be \>1 for communality adjusted matrices. Retention criteria given in the literature is \> 0. If you would remove the communality adjustment (diagonal becomes identity), then two eigenvalues become \>1 and the criteria works.
+
+The methods start to deviate when correlations get strong. Assume a stronger correlation of 0.7 between the two factors. The correlation between X and Y now is $0.5\times0.7=0.35$. The correlation matrix now is
+
+$$
+\begin{pmatrix}
+0.5&0.5&0.5&0.5&0.35&0.35&0.35&0.35\\
+0.5&0.5&0.5&0.5&0.35&0.35&0.35&0.35\\
+0.5&0.5&0.5&0.5&0.35&0.35&0.35&0.35\\
+0.5&0.5&0.5&0.5&0.35&0.35&0.35&0.35\\
+0.35&0.35&0.35&0.35&0.5&0.5&0.5&0.5\\
+0.35&0.35&0.35&0.35&0.5&0.5&0.5&0.5\\
+0.35&0.35&0.35&0.35&0.5&0.5&0.5&0.5\\
+0.35&0.35&0.35&0.35&0.5&0.5&0.5&0.5\\
+\end{pmatrix}
+$$
+
+with eigenvalues 0, 0, 0, 0, 0, 0.6, 3.4. Using identity diagonal the eigenvalues are 0.5,0.5,0.5,0.5,0.5,0.5, 1.1, 3.9 $\to$ retain 2 factors. Assuming correlation of 0.8 we'd get the eigenvalues of 0, 0, 0, 0, 0, 0, 0.4, 3.6 and with identity diagonal 0.9, 4.1, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5 $\to$ retain 1 factor. Assuming correlation of 0.9 we'd get the eigenvalues of 0, 0, 0, 0, 0, 0, 0.2, 3.8 and with identity diagonal 0.7, 4.3, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5. It seems then that the parallel analysis begins to fail when there is a strong correlation between the factors in a two factor scenario. We'll skip further complicating the analysis into more factors. (Also I'm not sure if assumption of unit variances makes a difference.)
+
+Communality adjusted method would not fail using retention criteria of \> 0, non-adjusted method using \> 1 criteria would fail. Why they differ? I don't know. As the number of factors and their correlation increase some argue that an adjusted method performs better [@steger2006]. It seems that the directions within the matrix are the same - the eigenvectors are the same for both non-adjusted and adjusted matrices (in these scenarios). Actually the central observation is that the eigenvalues are representative of each error variance and factor variances (of course) in the non-adjusted method. The differences in the adjusted matrix eigenvalues $\lambda_{adj}$ and unadjusted matrix eigenvalues $\lambda$ seems to be
+
+$$
+\lambda_{adj}-\lambda=\psi
+$$
+
+The adjusted criteria for the unadjusted matrix should then be
+
+$$
+\lambda>1-\psi
+$$
+
+In the above a constant error variance for all items is assumed.
+
+This means that, if we know error variance, we can then adjust accordingly using either method. We do not know error variance however and are left to estimate it. Estimating error variance can be done in multiple ways - e.g., by fitting a 1 factor model - and then you can use the adjusted matrix with criteria \> 0 or the non-adjusted matrix, but adjusted criteria (\>(1-item error variance)). If the criteria is not adjusted for the non-adjusted matrix then the larger the smaller the error variance, the likelier that we underfactor maybe. These are of course theoretical values, not including sampling errors. The main takeaway is in any case that we'd like to know the error variances.
+
+[@steger2006][@crawford2010] discuss factor retention criteria and favor the communality adjusted method when there are correlated factors. Revelle discusses that 1-fa based communality adjustment might be reasonable, as it does not overfactor as much as squared mean correlation communality adjustment. All packages that I'm aware of (paran, psych, hornpa, parallel) use the above mentioned methods or similar.
+
+### Final note
+
+It does not matter anyway. We cannot tell how many factors there are. Purpose seems more important. Communality adjustment can be done in many ways, none of which will be guaranteed to work. Horn's method is likely OK in most cases, unless multiple strongly correlated factors are expected, as is perhaps in psychopathology research causing a problem maybe.
